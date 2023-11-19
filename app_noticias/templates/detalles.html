@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block title %} Este es mi titulo {% endblock %}
+
+{% block contenido %}
+{% if error_message %} <p> {{ error_message }}</p> {% endif %}
+<ul>
+    {% for noticia in noticias %}
+    <li> {{noticia.titulo}} -> {{noticia.votos}} voto{{ noticia.votos|pluralize}}
+    </li>
+    <a href="{% url 'Detalle' noticia.id %}"> ver mi noticia favorita</a>
+    {% endfor %}
+</ul>
+    
+    <a href="{% url 'Encuesta' %}">volver a votar </a>
+    
+  
+{% endblock %}

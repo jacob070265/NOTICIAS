@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block title %} Este es el tema {{tema.titulo_tema}} {% endblock %}
+
+
+{% block contenido %}
+Lista de noticias de este tema
+<ul>
+    {% for noticia in noticias_del_tema %}
+    <li> 
+        {{noticia.titulo}}  <a href="{% url 'Detalle' noticia.id %}"> ver noticia </a>
+    </li>
+    {% endfor %}
+</ul>
+    Vota a tu noticia favorita de este tema: {{tema.titulo_tema}}
+    <form action="{% url 'Votos' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            {% for noticia in noticias_del_tema %}
+            <li>
+            <input type="radio" name="choice" value="{{noticia.titulo}}">{{ noticia.titulo }} 
+            </li>
+            {% endfor %}
+        </ul>
+            <input type="submit" value="vota">
+        </form>
+    
+  
+{% endblock %}

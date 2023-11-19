@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block title %} Esta es la encuesta {% endblock %}
+
+{% block contenido %}
+VOTA TU NOTICIA FAV:
+
+<form action="{% url 'Votos' %}" method="post">
+{% csrf_token %}
+<ul>
+    {% for noticia in noticias %}
+    <li>
+    <input type="radio" name="choice" value="{{noticia.titulo}}">{{ noticia.titulo }} 
+    </li>
+    {% endfor %}
+</ul>
+    <input type="submit" value="vota">
+</form>
+{% endblock %}

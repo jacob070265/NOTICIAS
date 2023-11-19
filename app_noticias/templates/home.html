@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block title %} Este es mi titulo {% endblock %}
+
+{% if mensaje %}<p><strong>{{ mensaje }}</strong></p>{% endif %}
+
+{% block contenido %}
+
+
+ultima noticia:
+{% for ultima in ultima %}
+<li>
+{{ultima.titulo}}
+{{ultima.id}}
+<a href="{% url 'Detalle' ultima.id %}"> ver ultima noticia</a>
+</li>
+{% endfor %}
+
+listado de temas:
+    {% for tema in temas %}
+    <li>
+       {{tema.titulo_tema}} <a href="{% url 'Temas' tema.id %}">Enlce a tema {{tema.id}} 
+    </li>
+    {% endfor %}
+
+    VOTA A TU NOTICIA FAVORITA
+    <a href="{% url 'Encuesta' %}">Enlce a encuesta general </a>
+<br>
+O SUBE UNA NOTICIA
+
+<form action="{% url 'IMG' %}" method="post">
+{% csrf_token %}
+{% for tema in temas %}
+    <input type="radio" name="tema" value="{{tema.titulo_tema}}">{{tema.titulo_tema}}  
+{% endfor %}
+    <input type="text" name="titulo">
+    <input type="text" name="descripcion">
+    <input type="file" name="img">
+    <input type="submit" name="subir" value="subir">
+</form>
+
+
+{% endblock %}
